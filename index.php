@@ -3,77 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Componentes</title>
-    <?php include_once "css_imports.html"; ?>
+    <title>Stock Management System</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h2>Lista de Componentes</h2>
 
-    <?php
-    // Conectar ao banco de dados
-    $conexao = new mysqli("localhost", "root", "", "gestaostock");
+<header>
+    <h1>Stock Management System</h1>
+</header>
 
-    // Verificar a conexão
-    if ($conexao->connect_error) {
-        die("Erro na conexão: " . $conexao->connect_error);
-    }
+<nav>
+    <a href="#">Home</a>
+    <a href="#">Products</a>
+    <a href="#">Orders</a>
+    <a href="#">Reports</a>
+</nav>
 
-    // Consultar os componentes
-    $query = "SELECT * FROM Componentes";
-    $resultado = $conexao->query($query);
+<div class="container">
+    <div class="content-container">
+        <h2>Lista de Componentes</h2>
 
-    if ($resultado->num_rows > 0) {
-        echo "<table border='1'>
-                <tr>
-                    <th>ID</th>
-                    <th>Tipo</th>
-                    <th>Marca</th>
-                    <th>Modelo</th>
-                    <th>Capacidade</th>
-                    <th>Velocidade</th>
-                    <th>Potencia</th>
-                    <th>Cor</th>
-                    <th>Preco</th>
-                    <th>DataLancamento</th>
-                    <th>Ações</th>
-                </tr>";
+        <?php
+        // Conectar ao banco de dados
+        $conexao = new mysqli("localhost","root","","gestaostock");
 
-        while ($linha = $resultado->fetch_assoc()) {
-            if( isset($precoTotal)) {
-                $precoTotal = $precoTotal + $linha['Preco'];
-            } else {
-                $precoTotal = $linha['Preco'];
-            }
-
-            echo "<tr>
-                    <td>{$linha['ID']}</td>
-                    <td>{$linha['Tipo']}</td>
-                    <td>{$linha['Marca']}</td>
-                    <td>{$linha['Modelo']}</td>
-                    <td>{$linha['Capacidade']}</td>
-                    <td>{$linha['Velocidade']}</td>
-                    <td>{$linha['Potencia']}</td>
-                    <td>{$linha['Cor']}</td>
-                    <td>{$linha['Preco']}</td>
-                    <td>{$linha['DataLancamento']}</td>
-                    <td>
-                        <a href='edit.php?id={$linha['ID']}' class='btn btn-success'>Editar</a>
-                        <a href='delete.php?id={$linha['ID']}' class='btn btn-danger'>Excluir</a>
-                    </td>
-                </tr>";
+        // Verificar a conexão
+        if ($conexao->connect_error) {
+            die("Erro na conexão: " . $conexao->connect_error);
         }
 
-        
-        echo "</table>";
-        echo "Preço total do PC: {$precoTotal}";
-    } else {
-        echo "Nenhum componente encontrado.";
-    }
+        // Consultar os componentes
+        $query = "SELECT * FROM Componentes";
+        $resultado = $conexao->query($query);
 
-    // Fechar a conexão
-    $conexao->close();
-    ?>
-    <br>
-    <a href="add.php" class="btn btn-primary">Adicionar Novo Componente</a>
+        if ($resultado->num_rows > 0) {
+            echo "<table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tipo</th>
+                        <th>Marca</th>
+                        <th>Modelo</th>
+                        <th>Capacidade</th>
+                        <th>Velocidade</th>
+                        <th>Potencia</th>
+                        <th>Cor</th>
+                        <th>Preco</th>
+                        <th>DataLancamento</th>
+                        <th>Ações</th>
+                    </tr>";
+
+            while ($linha = $resultado->fetch_assoc()) {
+                echo "<tr>
+                        <td>{$linha['ID']}</td>
+                        <td>{$linha['Tipo']}</td>
+                        <td>{$linha['Marca']}</td>
+                        <td>{$linha['Modelo']}</td>
+                        <td>{$linha['Capacidade']}</td>
+                        <td>{$linha['Velocidade']}</td>
+                        <td>{$linha['Potencia']}</td>
+                        <td>{$linha['Cor']}</td>
+                        <td>{$linha['Preco']}</td>
+                        <td>{$linha['DataLancamento']}</td>
+                        <td>
+                            <a href='edit.php?id={$linha['ID']}'>Editar</a>
+                            <a href='delete.php?id={$linha['ID']}'>Excluir</a>
+                                
+                        </td>
+                    </tr>";
+            }
+
+            echo "</table>";
+        } else {
+            echo "Nenhum componente encontrado.";
+        }
+
+        // Fechar a conexão
+        $conexao->close();
+        ?>
+
+        <a href="add.php" class="button">Adicionar Novo Componente</a> 
+    </div>
+
+    <!-- <div class="image-container">
+        <img src="logo.jpg" alt="Stock Management System Image">
+    </div>
+    -->
+</div>
+
 </body>
 </html>
