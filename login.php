@@ -46,7 +46,9 @@
             }
 
             // Fechar a conexão
-            $conexao->close();
+
+            
+            $conexao->close(); 
         }
         ?>
 
