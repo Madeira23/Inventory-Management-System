@@ -12,12 +12,7 @@
     <h1>Stock Management System</h1>
 </header>
 
-<nav>
-    <a href="dashboard.php">Home</a>
-    <a href="#">Products</a>
-    <a href="#">Orders</a>
-    <a href="#">Reports</a>
-</nav>
+
 
 <div class="container">
     <div class="content-container">
