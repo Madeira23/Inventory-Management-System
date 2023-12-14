@@ -1,3 +1,5 @@
+<?php require('requireLogin.php'); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,6 +21,7 @@
             die("Erro na conexão: " . $conexao->connect_error);
         }
 
+        
         // Dados do formulário
         $tipo = $_POST["tipo"];
         $marca = $_POST["marca"];
@@ -40,6 +43,20 @@
             echo "Erro ao adicionar componente: " . $conexao->error;
         }
 
+        $userId = $_SESSION['userId'];
+        $username = $_SESSION['username'];
+
+        $query_movimentos = "INSERT INTO movimentos (movimento, data, hora, funcionario_id, funcionario_nome) 
+                             VALUES ('Adição', CURRENT_DATE, CURRENT_TIME, $userId, '$username')";
+
+        echo "<pre>".print_r($query_movimentos)."</pre>";
+
+        if ($conexao->query($query_movimentos) === TRUE) {
+            echo "Histórico atualizado com sucesso!";
+        } else {
+            echo "Erro ao atualizar componente: " . $conexao->error;
+        }
+
         // Fechar a conexão
         $conexao->close();
     }
@@ -56,16 +73,16 @@
         <input type="text" name="modelo" required><br>
 
         <label for="capacidade">Capacidade:</label>
-        <input type="number" name="capacidade"><br>
+        <input type="number" name="capacidade" required><br>
 
         <label for="velocidade">Velocidade:</label>
-        <input type="text" name="velocidade"><br>
+        <input type="text" name="velocidade" required><br>
 
         <label for="potencia">Potência:</label>
-        <input type="number" name="potencia"><br>
+        <input type="number" name="potencia" required><br>
 
         <label for="cor">Cor:</label>
-        <input type="text" name="cor"><br>
+        <input type="text" name="cor" required><br>
 
         <label for="preco">Preço:</label>
         <input type="number" name="preco" step="0.01" required><br>

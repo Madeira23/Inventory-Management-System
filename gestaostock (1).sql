@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 11-Dez-2023 às 18:40
+-- Tempo de geração: 14-Dez-2023 às 16:13
 -- Versão do servidor: 10.4.24-MariaDB
 -- versão do PHP: 8.1.6
 
@@ -45,14 +45,14 @@ CREATE TABLE `componentes` (
 --
 
 INSERT INTO `componentes` (`ID`, `Tipo`, `Marca`, `Modelo`, `Capacidade`, `Velocidade`, `Potencia`, `Cor`, `Preco`, `DataLancamento`) VALUES
-(1, 'Processador', 'Intel', 'Core i7', NULL, '3.6 GHz', NULL, NULL, '300.00', '2022-01-01'),
-(2, 'Placa Gráfica', 'NVIDIA', 'GeForce RTX 3080', 10, NULL, NULL, NULL, '800.00', '2022-02-15'),
-(3, 'Motherboard', 'ASUS', 'ROG Strix B550-F', NULL, NULL, NULL, NULL, '200.00', '2022-03-10'),
-(4, 'Disco', 'Samsung', '970 EVO Plus', 500, NULL, NULL, NULL, '120.00', '2022-04-05'),
-(6, 'Processador', 'Amd', 'Ryzen 5 50000', 3, '213hz', 4, 'Amarelo', '965.00', '1989-07-12'),
-(8, '4235324', '345345', '234523', 12312, '21312', 21312, '3125423', '1231.00', '2020-02-05'),
-(9, '123', '12123', '111111', 111111, '111111', 1111, '11111111', '11111.00', '2023-01-01'),
-(10, '888888', '88888', '888', 888, '888', 888, '8888', '888.00', '2012-01-10');
+(2, 'Placa Gráfica', 'NVIDIA', 'GeForce RTX 3080', 10, '213', 123, 'pleto', '823.51', '2022-02-15'),
+(3, 'Motherboard', 'ASUS', 'ROG Strix B550-F', 213, '231', 123, 'amarelo', '200.00', '2022-03-10'),
+(4, 'Disco', 'Samsung', '970 EVO Plus', 500, '123', 123, 'branquinho', '120.00', '2022-04-05'),
+(12, 'Processador', 'Intel', 'i5 12400F', 2203947, '12370', 23498, 'arco-iris', '169.99', '2023-12-14'),
+(13, 'Processador', 'Amd', '123', 123, '123', 1234354, 'amarelo', '77777.00', '2023-12-27'),
+(14, 'Processador', 'Amd', '123', 123, '123', 1234354, 'amarelo', '77777.00', '2023-12-27'),
+(15, 'Processador', 'Amd', '123', 123, '123', 1234354, 'amarelo', '77777.00', '2023-12-27'),
+(16, 'Processador', 'Amd', '123', 123, '123', 1234354, 'amarelo', '77777.00', '2023-12-27');
 
 -- --------------------------------------------------------
 
@@ -69,6 +69,16 @@ CREATE TABLE `movimentos` (
   `funcionario_nome` varchar(255) NOT NULL,
   `componente_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `movimentos`
+--
+
+INSERT INTO `movimentos` (`id`, `movimento`, `data`, `hora`, `funcionario_id`, `funcionario_nome`, `componente_id`) VALUES
+(2, 'Edição', '2023-12-14', '14:08:14', 3, 'Diogo Paulos', 2),
+(5, 'Edição', '2023-12-14', '14:16:21', 3, 'Diogo Paulos', 3),
+(6, 'Edição', '2023-12-14', '14:16:46', 3, 'Diogo Paulos', 4),
+(9, 'Adição', '2023-12-14', '14:44:41', 3, 'Diogo Paulos', NULL);
 
 -- --------------------------------------------------------
 
@@ -90,7 +100,8 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`ID`, `nome`, `username`, `senha`, `IsAdmin`) VALUES
 (1, 'Funcionário Teste', 'funcionario', 'senha_funcionario', 0),
-(2, 'Admin Teste', 'admin', 'senha_admin', 1);
+(2, 'Admin Teste', 'admin', 'senha_admin', 1),
+(3, 'Diogo Paulos', 'dpaulos', '12345678', 0);
 
 --
 -- Índices para tabelas despejadas
@@ -124,19 +135,19 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `componentes`
 --
 ALTER TABLE `componentes`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de tabela `movimentos`
 --
 ALTER TABLE `movimentos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restrições para despejos de tabelas

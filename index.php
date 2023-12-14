@@ -1,3 +1,5 @@
+<?php require('requireLogin.php'); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,9 +72,9 @@
                         <td>{$linha['Cor']}</td>
                         <td>{$linha['Preco']}</td>
                         <td>{$linha['DataLancamento']}</td>
-                        <td>
-                            <a href='edit.php?id={$linha['ID']}' class='btn btn-danger'>Editar</a>
-                            <a href='delete.php?id={$linha['ID']}' class='btn btn-success'>Excluir</a> 
+                        <td style='display: flex; flex-direction: row; gap: .5rem;'>
+                            <a href='edit.php?id={$linha['ID']}' class='btn btn-success'>Editar</a>
+                            <a href='delete.php?id={$linha['ID']}' class='btn btn-danger'>Excluir</a> 
                         </td>
                     </tr>";
             }

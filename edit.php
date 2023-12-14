@@ -1,3 +1,5 @@
+<?php require('requireLogin.php'); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,7 +40,19 @@
                   WHERE ID=$id";
 
         if ($conexao->query($query) === TRUE) {
-            echo "Componente atualizado com sucesso!";
+            echo "Componente atualizado com sucesso!<br>";
+        } else {
+            echo "Erro ao atualizar componente: " . $conexao->error;
+        }
+
+        $userId = $_SESSION['userId'];
+        $username = $_SESSION['username'];
+
+        $query_movimentos = "INSERT INTO movimentos (movimento, data, hora, funcionario_id, funcionario_nome) 
+                             VALUES ('Edição', CURRENT_DATE, CURRENT_TIME, $userId, '$username')";
+
+        if ($conexao->query($query_movimentos) === TRUE) {
+            echo "Histórico atualizado com sucesso!";
         } else {
             echo "Erro ao atualizar componente: " . $conexao->error;
         }
@@ -89,16 +103,16 @@
         <input type="text" name="modelo" value="<?php echo $linha['Modelo']; ?>" required><br>
 
         <label for="capacidade">Capacidade:</label>
-        <input type="number" name="capacidade" value="<?php echo $linha['Capacidade']; ?>"><br>
+        <input type="number" name="capacidade" value="<?php echo $linha['Capacidade']; ?>" required><br>
 
         <label for="velocidade">Velocidade:</label>
-        <input type="text" name="velocidade" value="<?php echo $linha['Velocidade']; ?>"><br>
+        <input type="text" name="velocidade" value="<?php echo $linha['Velocidade']; ?>" required><br>
 
         <label for="potencia">Potência:</label>
-        <input type="number" name="potencia" value="<?php echo $linha['Potencia']; ?>"><br>
+        <input type="number" name="potencia" value="<?php echo $linha['Potencia']; ?>" required><br>
 
         <label for="cor">Cor:</label>
-        <input type="text" name="cor" value="<?php echo $linha['Cor']; ?>"><br>
+        <input type="text" name="cor" value="<?php echo $linha['Cor']; ?>" required><br>
 
         <label for="preco">Preço:</label>
         <input type="number" name="preco" step="0.01" value="<?php echo $linha['Preco']; ?>" required><br>

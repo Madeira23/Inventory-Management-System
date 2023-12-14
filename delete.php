@@ -1,3 +1,5 @@
+<?php require('requireLogin.php'); ?>
+
 <?php
 if (isset($_GET["id"])) {
     // Conectar ao banco de dados
@@ -16,6 +18,18 @@ if (isset($_GET["id"])) {
         echo "Componente excluído com sucesso!";
     } else {
         echo "Erro ao excluir componente: " . $conexao->error;
+    }
+
+    $userId = $_SESSION['userId'];
+    $username = $_SESSION['username'];
+
+    $query_movimentos = "INSERT INTO movimentos (movimento, data, hora, funcionario_id, funcionario_nome) 
+                            VALUES ('Edição', CURRENT_DATE, CURRENT_TIME, $userId, '$username')";
+
+    if ($conexao->query($query_movimentos) === TRUE) {
+        echo "Histórico atualizado com sucesso!";
+    } else {
+        echo "Erro ao atualizar componente: " . $conexao->error;
     }
 
     // Fechar a conexão

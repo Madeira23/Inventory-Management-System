@@ -1,4 +1,5 @@
 <?php
+session_start();
 // Este arquivo será responsável por processar as credenciais de login submetidas no formulário.
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -30,6 +31,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Redirecionar para a página do funcionário
             header("Location: index.php");
         }
+
+        $_SESSION['logado']=true;
+        $_SESSION['userId']=$utilizador['ID'];
+        $_SESSION['username']=$utilizador['nome'];
 
         // Fechar a conexão
         $conexao->close();

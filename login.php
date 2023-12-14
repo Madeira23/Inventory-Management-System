@@ -1,3 +1,7 @@
+<?php 
+require('requireLogin.php'); 
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +19,10 @@
 <div class="container">
     <div class="content-container">
         <h2>Login</h2>
+        
+        <div class="image-container">
+            <img src="logo.jpg" alt="Stock Management System Image">
+        </div>
 
         <?php
         // Processar o formulário de login aqui, se necessário
@@ -52,21 +60,21 @@
         }
         ?>
 
-        <form action="process_login.php" method="post">
-            <label for="username">Utilizador:</label>
-            <input type="text" name="username" required>
+        <div class="login-container">
+            <form action="process_login.php" method="post" class="login-form">
+                <div class="login-field">
+                    <label for="username">Utilizador:</label>
+                    <input type="text" name="username" required>
+                </div>
+                <div class="login-field">
+                    <label for="password">Senha:</label>
+                    <input type="password" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary login-button">Entrar</button>
+            </form>
+        </div>
 
-            <label for="password">Senha:</label>
-            <input type="password" name="password" required>
-
-            <button type="submit" class="btn btn-primary">Entrar</button>
-        </form>
-
-        <p>Ainda não tem uma conta? <a href="register.php">Registre-se</a></p>
-    </div>
-
-    <div class="image-container">
-        <img src="stock_image.jpg" alt="Stock Management System Image">
+        <p>Ainda não tem uma conta? <a href="register.php">Criar conta</a></p>
     </div>
 </div>
 
