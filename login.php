@@ -1,5 +1,4 @@
 <?php 
-require('requireLogin.php'); 
 ?>
 
 <!DOCTYPE html>

@@ -51,6 +51,7 @@
                         <th>Tipo</th>
                         <th>Marca</th>
                         <th>Modelo</th>
+                        <th>Quantidade</th>
                         <th>Capacidade</th>
                         <th>Velocidade</th>
                         <th>Potencia</th>
@@ -66,6 +67,7 @@
                         <td>{$linha['Tipo']}</td>
                         <td>{$linha['Marca']}</td>
                         <td>{$linha['Modelo']}</td>
+                        <td>{$linha['Quantidade']}</td>
                         <td>{$linha['Capacidade']}</td>
                         <td>{$linha['Velocidade']}</td>
                         <td>{$linha['Potencia']}</td>

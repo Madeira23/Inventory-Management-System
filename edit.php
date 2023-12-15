@@ -26,6 +26,7 @@
         $tipo = $_POST["tipo"];
         $marca = $_POST["marca"];
         $modelo = $_POST["modelo"];
+        $quantidade = $_POST["quantidade"];
         $capacidade = $_POST["capacidade"];
         $velocidade = $_POST["velocidade"];
         $potencia = $_POST["potencia"];
@@ -35,7 +36,7 @@
 
         // Atualizar no banco de dados
         $query = "UPDATE Componentes 
-                  SET Tipo='$tipo', Marca='$marca', Modelo='$modelo', Capacidade=$capacidade, Velocidade='$velocidade', 
+                  SET Tipo='$tipo', Marca='$marca', Modelo='$modelo',Quantidade='$quantidade', Capacidade=$capacidade, Velocidade='$velocidade', 
                       Potencia=$potencia, Cor='$cor', Preco=$preco, DataLancamento='$dataLancamento' 
                   WHERE ID=$id";
 

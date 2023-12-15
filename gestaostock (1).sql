@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 14-Dez-2023 às 16:13
+-- Tempo de geração: 15-Dez-2023 às 16:32
 -- Versão do servidor: 10.4.24-MariaDB
 -- versão do PHP: 8.1.6
 
@@ -32,6 +32,7 @@ CREATE TABLE `componentes` (
   `Tipo` varchar(50) NOT NULL,
   `Marca` varchar(50) DEFAULT NULL,
   `Modelo` varchar(50) DEFAULT NULL,
+  `Quantidade` int(11) NOT NULL,
   `Capacidade` int(11) DEFAULT NULL,
   `Velocidade` varchar(20) DEFAULT NULL,
   `Potencia` int(11) DEFAULT NULL,
@@ -44,15 +45,10 @@ CREATE TABLE `componentes` (
 -- Extraindo dados da tabela `componentes`
 --
 
-INSERT INTO `componentes` (`ID`, `Tipo`, `Marca`, `Modelo`, `Capacidade`, `Velocidade`, `Potencia`, `Cor`, `Preco`, `DataLancamento`) VALUES
-(2, 'Placa Gráfica', 'NVIDIA', 'GeForce RTX 3080', 10, '213', 123, 'pleto', '823.51', '2022-02-15'),
-(3, 'Motherboard', 'ASUS', 'ROG Strix B550-F', 213, '231', 123, 'amarelo', '200.00', '2022-03-10'),
-(4, 'Disco', 'Samsung', '970 EVO Plus', 500, '123', 123, 'branquinho', '120.00', '2022-04-05'),
-(12, 'Processador', 'Intel', 'i5 12400F', 2203947, '12370', 23498, 'arco-iris', '169.99', '2023-12-14'),
-(13, 'Processador', 'Amd', '123', 123, '123', 1234354, 'amarelo', '77777.00', '2023-12-27'),
-(14, 'Processador', 'Amd', '123', 123, '123', 1234354, 'amarelo', '77777.00', '2023-12-27'),
-(15, 'Processador', 'Amd', '123', 123, '123', 1234354, 'amarelo', '77777.00', '2023-12-27'),
-(16, 'Processador', 'Amd', '123', 123, '123', 1234354, 'amarelo', '77777.00', '2023-12-27');
+INSERT INTO `componentes` (`ID`, `Tipo`, `Marca`, `Modelo`, `Quantidade`, `Capacidade`, `Velocidade`, `Potencia`, `Cor`, `Preco`, `DataLancamento`) VALUES
+(2, 'Placa Gráfica', 'NVIDIA', 'GeForce RTX 3080', 10, 10, '213', 123, 'pleto', '823.52', '2022-02-15'),
+(3, 'Motherboard', 'ASUS', 'ROG Strix B550-F', 5, 213, '231', 123, 'amarelo', '200.00', '2022-03-10'),
+(18, 'Disco', 'Samsung', 'SSD', 5, 1000, '10', 10, 'cinzento', '50.00', '2023-02-23');
 
 -- --------------------------------------------------------
 
@@ -77,8 +73,45 @@ CREATE TABLE `movimentos` (
 INSERT INTO `movimentos` (`id`, `movimento`, `data`, `hora`, `funcionario_id`, `funcionario_nome`, `componente_id`) VALUES
 (2, 'Edição', '2023-12-14', '14:08:14', 3, 'Diogo Paulos', 2),
 (5, 'Edição', '2023-12-14', '14:16:21', 3, 'Diogo Paulos', 3),
-(6, 'Edição', '2023-12-14', '14:16:46', 3, 'Diogo Paulos', 4),
-(9, 'Adição', '2023-12-14', '14:44:41', 3, 'Diogo Paulos', NULL);
+(6, 'Edição', '2023-12-14', '14:16:46', 3, 'Diogo Paulos', NULL),
+(9, 'Adição', '2023-12-14', '14:44:41', 3, 'Diogo Paulos', NULL),
+(10, 'Adição', '2023-12-14', '16:39:45', 3, 'Diogo Paulos', NULL),
+(11, 'Adição', '2023-12-14', '16:39:45', 3, 'Diogo Paulos', NULL),
+(12, 'Adição', '2023-12-14', '16:39:45', 3, 'Diogo Paulos', NULL),
+(13, 'Adição', '2023-12-14', '16:39:45', 3, 'Diogo Paulos', NULL),
+(14, 'Adição', '2023-12-14', '16:39:45', 3, 'Diogo Paulos', NULL),
+(15, 'Adição', '2023-12-14', '16:39:45', 3, 'Diogo Paulos', NULL),
+(16, 'Adição', '2023-12-14', '16:39:45', 3, 'Diogo Paulos', NULL),
+(17, 'Edição', '2023-12-15', '14:28:35', 2, 'Admin Teste', NULL),
+(18, 'Edição', '2023-12-15', '14:32:38', 1, 'Funcionário Teste', NULL),
+(19, 'Edição', '2023-12-15', '14:32:50', 1, 'Funcionário Teste', NULL),
+(20, 'Remoção', '2023-12-15', '14:34:04', 2, 'Admin Teste', NULL),
+(21, 'Remoção', '2023-12-15', '14:34:07', 2, 'Admin Teste', NULL),
+(22, 'Remoção', '2023-12-15', '14:34:43', 2, 'Admin Teste', NULL),
+(23, 'Remoção', '2023-12-15', '14:34:48', 2, 'Admin Teste', NULL),
+(24, 'Remoção', '2023-12-15', '14:35:59', 2, 'Admin Teste', NULL),
+(25, 'Remoção', '2023-12-15', '14:36:13', 2, 'Admin Teste', NULL),
+(26, 'Remoção', '2023-12-15', '14:36:22', 2, 'Admin Teste', NULL),
+(27, 'Remoção', '2023-12-15', '14:40:40', 2, 'Admin Teste', NULL),
+(28, 'Remoção', '2023-12-15', '14:41:11', 2, 'Admin Teste', NULL),
+(29, 'Remoção', '2023-12-15', '14:41:19', 2, 'Admin Teste', NULL),
+(30, 'Remoção', '2023-12-15', '14:47:52', 2, 'Admin Teste', NULL),
+(31, 'Remoção', '2023-12-15', '14:48:02', 2, 'Admin Teste', NULL),
+(32, 'Remoção', '2023-12-15', '14:49:18', 2, 'Admin Teste', NULL),
+(33, 'Remoção', '2023-12-15', '14:49:22', 2, 'Admin Teste', NULL),
+(34, 'Remoção', '2023-12-15', '14:49:27', 2, 'Admin Teste', NULL),
+(35, 'Remoção', '2023-12-15', '14:49:32', 2, 'Admin Teste', NULL),
+(36, 'Remoção', '2023-12-15', '14:49:41', 2, 'Admin Teste', NULL),
+(37, 'Remoção', '2023-12-15', '14:49:44', 2, 'Admin Teste', NULL),
+(38, 'Remoção', '2023-12-15', '14:49:45', 2, 'Admin Teste', NULL),
+(39, 'Remoção', '2023-12-15', '14:49:46', 2, 'Admin Teste', NULL),
+(40, 'Remoção', '2023-12-15', '14:49:52', 2, 'Admin Teste', NULL),
+(41, 'Remoção', '2023-12-15', '14:50:14', 2, 'Admin Teste', NULL),
+(42, 'Remoção', '2023-12-15', '14:51:00', 2, 'Admin Teste', NULL),
+(43, 'Remoção', '2023-12-15', '14:57:33', 2, 'Admin Teste', NULL),
+(44, 'Remoção', '2023-12-15', '14:58:45', 2, 'Admin Teste', NULL),
+(45, 'Remoção', '2023-12-15', '15:00:03', 2, 'Admin Teste', NULL),
+(46, 'Adição', '2023-12-15', '15:08:31', 2, 'Admin Teste', NULL);
 
 -- --------------------------------------------------------
 
@@ -101,7 +134,12 @@ CREATE TABLE `usuarios` (
 INSERT INTO `usuarios` (`ID`, `nome`, `username`, `senha`, `IsAdmin`) VALUES
 (1, 'Funcionário Teste', 'funcionario', 'senha_funcionario', 0),
 (2, 'Admin Teste', 'admin', 'senha_admin', 1),
-(3, 'Diogo Paulos', 'dpaulos', '12345678', 0);
+(3, 'Diogo Paulos', 'dpaulos', '12345678', 0),
+(7, 'Pedro', 'pedra', '$2y$10$Q6oU/8Vb8l6lB4QG62dxpupk1CfkfTLtNtpWEweX868sRHlgWgjSO', 0),
+(8, 'Pedro', 'pedra', '$2y$10$pYf5gMyeDDSHVrquKaK8qubLtIPnt4TsVG8dkkiZLRoYCOQ6UpiAG', 0),
+(9, 'Pedro', 'pedra', '$2y$10$EkrIpqybJMxHtP5.swWnTe3MFM0km5tiO8j39ZZ.ESMyQlMms6Y5a', 0),
+(10, 'teste', 'teste', '$2y$10$FyVdsuMI8KMUGN.57Txfs.oJXEcCcIRDGoyT.XSPjU2qVnMpqBVSO', 1),
+(11, 'teste', 'teste', '$2y$10$DQbaIXmhrvI5m9bYhTfACenAZ3188tZbwtmGgDuCGiiTQ1zaMaKuK', 1);
 
 --
 -- Índices para tabelas despejadas
@@ -135,19 +173,19 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `componentes`
 --
 ALTER TABLE `componentes`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de tabela `movimentos`
 --
 ALTER TABLE `movimentos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Restrições para despejos de tabelas

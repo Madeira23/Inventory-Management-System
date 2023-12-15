@@ -14,23 +14,27 @@ if (isset($_GET["id"])) {
     $id = $_GET["id"];
     $query = "DELETE FROM Componentes WHERE ID=$id";
 
-    if ($conexao->query($query) === TRUE) {
-        echo "Componente excluído com sucesso!";
+    $conexao->query($query);
+
+    if ( mysqli_affected_rows($conexao) > 0) {
+        echo "Componente excluído com sucesso!!";
+
+        $userId = $_SESSION['userId'];
+        $username = $_SESSION['username'];
+
+        $query_movimentos = "INSERT INTO movimentos (movimento, data, hora, funcionario_id, funcionario_nome) 
+                                VALUES ('Remoção', CURRENT_DATE, CURRENT_TIME, $userId, '$username')";
+
+        if ($conexao->query($query_movimentos) === TRUE) {
+            echo "Histórico atualizado com sucesso!";
+        } else {
+            echo "Erro ao atualizar componente: " . $conexao->error;
+        }
     } else {
         echo "Erro ao excluir componente: " . $conexao->error;
     }
 
-    $userId = $_SESSION['userId'];
-    $username = $_SESSION['username'];
-
-    $query_movimentos = "INSERT INTO movimentos (movimento, data, hora, funcionario_id, funcionario_nome) 
-                            VALUES ('Edição', CURRENT_DATE, CURRENT_TIME, $userId, '$username')";
-
-    if ($conexao->query($query_movimentos) === TRUE) {
-        echo "Histórico atualizado com sucesso!";
-    } else {
-        echo "Erro ao atualizar componente: " . $conexao->error;
-    }
+    
 
     // Fechar a conexão
     $conexao->close();

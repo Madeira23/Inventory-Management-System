@@ -26,6 +26,7 @@
         $tipo = $_POST["tipo"];
         $marca = $_POST["marca"];
         $modelo = $_POST["modelo"];
+        $quantidade =$_POST["quantidade"];
         $capacidade = $_POST["capacidade"];
         $velocidade = $_POST["velocidade"];
         $potencia = $_POST["potencia"];
@@ -34,8 +35,8 @@
         $dataLancamento = $_POST["dataLancamento"];
 
         // Inserir no banco de dados
-        $query = "INSERT INTO Componentes (Tipo, Marca, Modelo, Capacidade, Velocidade, Potencia, Cor, Preco, DataLancamento) 
-                  VALUES ('$tipo', '$marca', '$modelo', $capacidade, '$velocidade', $potencia, '$cor', $preco, '$dataLancamento')";
+        $query = "INSERT INTO Componentes (Tipo, Marca, Modelo, Quantidade, Capacidade, Velocidade, Potencia, Cor, Preco, DataLancamento) 
+                  VALUES ('$tipo', '$marca', '$modelo', $quantidade, $capacidade, '$velocidade', $potencia, '$cor', $preco, '$dataLancamento')";
 
         if ($conexao->query($query) === TRUE) {
             echo "Componente adicionado com sucesso!";
@@ -71,6 +72,10 @@
 
         <label for="modelo">Modelo:</label>
         <input type="text" name="modelo" required><br>
+
+        <label for="quantidade">Quantidade:</label>
+        <input type="text" name="quantidade" required><br>
+
 
         <label for="capacidade">Capacidade:</label>
         <input type="number" name="capacidade" required><br>
