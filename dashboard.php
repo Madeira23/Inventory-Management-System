@@ -1,4 +1,12 @@
-<?php require('requireLogin.php'); ?>
+<?php require('requireLogin.php');
+
+$fullUrl = $_SERVER['REQUEST_URI'];
+$specificWord = 'dashboard';
+$urlVerify = false;
+if (strpos($fullUrl, $specificWord) !== false) {
+    $urlVerify = true;
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,12 +19,27 @@
 <body>
 
 <header>
-    <h1>Stock Management System</h1>
-    <nav>
-        <a href="index2.php">Dashboard</a>
-        <a href="historico.php">Histórico de Alterações</a>
-        <a href="gestao_funcionarios.php">Gestão de Funcionários</a>
-        <!-- Adicione mais itens de menu conforme necessário -->
+    <nav class="navbar">
+        <div class="navbar-center">
+            <h1>Stock Management System</h1>
+            <div class="navbar-container">
+                <?php if($urlVerify) { ?>
+                    <a href="dashboard.php" class="btn btn-primary navbar-link">Dashboard</a>
+                <?php } else { ?>
+                    <a href="dashboard.php" class="btn btn-secondary navbar-link">Dashboard</a>
+                <?php } ?>
+                <a href="historico.php" class="btn btn-secondary navbar-link">Histórico de Alterações</a>
+                <a href="gestao_funcionarios.php" class="btn btn-secondary navbar-link">Gestão de Funcionários</a>
+            </div>
+        </div>
+        <div class="navbar-login">
+            <?php if($_SESSION['logado'] !== true) { ?>
+                <a href="login.php" class="btn btn-success">Login</a>
+            <?php } else { ?>
+                <p style="font-size: 10pt"><?=$_SESSION['username']?></p>
+                <a href="logout.php" class="btn btn-success">Logout</a>
+            <?php } ?>
+        </div>
     </nav>
 </header>
 
@@ -25,10 +48,14 @@
         <h2>Lista de Componentes</h2>
 
         <!-- Adicione o formulário de pesquisa -->
-        <form method="GET" action="">
-            <label for="produto">Pesquisar por Produto:</label>
-            <input type="text" name="produto" id="produto">
-            <input type="submit" value="Pesquisar">
+        <form method="GET" action="" class="row mb-3" style="width: 100%; justify-content:center;">
+            <div class="" style="width: max-content; display: flex; flex-direction: row;">
+                <label for="produto" style="display:flex; align-items: center; margin-right: .5rem;">Pesquisar por Produto:</label>
+                <input type="text" name="produto" id="produto" class="form-control" style="width: fit-content !important;">
+            </div>
+            <div style="width: max-content;">
+                <input type="submit" value="Pesquisar" class="btn btn-primary">
+            </div>
         </form>
 
         <?php
@@ -79,8 +106,8 @@
                         <td>{$linha['Preco']}</td>
                         <td>{$linha['DataLancamento']}</td>
                         <td>
-                            <a href='edit.php?id={$linha['ID']}' class='btn btn-danger'>Editar</a>
-                            <a href='delete.php?id={$linha['ID']}' class='btn btn-success'>Excluir</a> 
+                            <a href='edit.php?id={$linha['ID']}' class='btn btn-success'>Editar</a>
+                            <a href='delete.php?id={$linha['ID']}' class='btn btn-danger'>Excluir</a> 
                         </td>
                     </tr>";
             }

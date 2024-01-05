@@ -156,7 +156,7 @@ ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`ID`);
 
 --
--- AUTO_INCREMENT de tabelas despejadas
+-- AUTO_INCREMENT de tabelas despejadas 
 --
 
 --

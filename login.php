@@ -69,11 +69,11 @@ if (isset($_POST['submit'])) {
             <form method="post" class="login-form">
                 <div class="login-field">
                     <label for="username">Utilizador:</label>
-                    <input type="text" name="username" required>
+                    <input type="text" name="username" class="form-control" required>
                 </div>
                 <div class="login-field">
                     <label for="password">Senha:</label>
-                    <input type="password" name="password" required>
+                    <input type="password" name="password" class="form-control" required>
                 </div>
                 <input type="submit" name="submit" value="Entrar" class="btn btn-primary login-button"/>
             </form>

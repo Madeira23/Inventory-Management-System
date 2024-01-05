@@ -83,6 +83,7 @@ a.button {
     flex-direction: column;
     width: 35%;
     gap: .5rem;
+    margin: 0 auto;
 }
 
 .login-field{
@@ -120,4 +121,32 @@ a.button {
     .image-container {
         margin: 20px 0;
     }
+}
+
+.navbar{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding: 1rem !important;
+}
+
+.navbar-center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.navbar-container{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.navbar-login p{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: .5rem;
 }

@@ -1,4 +1,12 @@
-<?php require('requireLogin.php'); ?>
+<?php require('requireLogin.php'); 
+
+$fullUrl = $_SERVER['REQUEST_URI'];
+$specificWord = 'historico';
+$urlVerify = false;
+if (strpos($fullUrl, $specificWord) !== false) {
+    $urlVerify = true;
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,9 +16,6 @@
     <title>Movimentos Table</title>
     <?php include_once "css_imports.html"; ?>
     <style>
-        body{
-            padding: 2rem;
-        }
         table {
             border-collapse: collapse;
             width: 100%;
@@ -26,6 +31,26 @@
     </style>
 </head>
 <body>
+
+<header>
+    <nav class="navbar">
+        <div class="navbar-center">
+            <h1>Stock Management System</h1>
+            <div class="navbar-container">
+                <a href="dashboard.php" class="btn btn-secondary navbar-link">Dashboard</a>
+                <?php if($urlVerify) { ?>
+                    <a href="historico.php" class="btn btn-primary navbar-link">Histórico de Alterações</a>
+                <?php } else { ?>
+                    <a href="historico.php" class="btn btn-secondary navbar-link">Histórico de Alterações</a>
+                <?php } ?>
+                <a href="gestao_funcionarios.php" class="btn btn-secondary navbar-link">Gestão de Funcionários</a>
+            </div>
+        </div>
+        <div class="navbar-login">
+            <a class="btn btn-success">Login</a>
+        </div>
+    </nav>
+</header>
 
 <?php
 // Assuming you have a database connection, replace these lines with your actual database connection code.
