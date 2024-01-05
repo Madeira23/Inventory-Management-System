@@ -37,18 +37,39 @@ $dbname = "gestaostock";
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+    
     // Fetch data from the "movimentos" table
-    $stmt = $conn->query("SELECT * FROM movimentos");
+    $stmt = $conn->query("SELECT * FROM movimentos ORDER BY hora DESC");
     $movimentos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    function getDetalhesById($detalhe){
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "gestaostock";
+    
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+        $stmt = $conn->query("SELECT * FROM movimento_detalhes WHERE id='$detalhe'");
+        $detalhe = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+        return $detalhe;
+    }
+
+    
     // Display the data in an HTML table
     echo '<table>';
-    echo '<thead><tr><th>Movimento</th><th>Data</th><th>Hora</th><th>Funcionário Nome</th></tr></thead>';
+    echo '<thead><tr><th>Movimento</th><th>Tipo de Componente</th><th>Componente Antes</th><th>Componente Depois</th><th>Data</th><th>Hora</th><th>Funcionário Nome</th></tr></thead>';
     echo '<tbody>';
     foreach ($movimentos as $movimento) {
+        $detalhes = getDetalhesById($movimento['movimento_detalhes_id'])[0];
+
         echo '<tr>';
         echo '<td>' . $movimento['movimento'] . '</td>';
+        echo '<td>' . $detalhes['tipo'] . '</td>';
+        echo '<td>' . $detalhes['componente_before'] . '</td>';
+        echo '<td>' . $detalhes['componente_after'] . '</td>';
         echo '<td>' . $movimento['data'] . '</td>';
         echo '<td>' . $movimento['hora'] . '</td>';
         echo '<td>' . $movimento['funcionario_nome'] . '</td>';

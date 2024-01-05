@@ -21,6 +21,36 @@
             die("Erro na conexão: " . $conexao->connect_error);
         }
 
+        function componenteAntes($id) {
+            $conexao = new mysqli("localhost", "root", "", "gestaostock");
+        
+            if ($conexao->connect_error) {
+                die("Erro na conexão: " . $conexao->connect_error);
+            }
+        
+            $query = "SELECT marca, modelo FROM componentes WHERE id='$id'";
+            
+            $result = $conexao->query($query);
+        
+            if ($result) {
+                if ($result->num_rows > 0) {
+                    $row = $result->fetch_assoc();
+                    $conexao->close();
+                    return $row;
+                } else {
+                    $conexao->close();
+                    return null;
+                }
+            } else {
+                $conexao->close();
+                return null;
+            }
+        }        
+
+        $componente_antes = componenteAntes($_POST["id"]);
+
+        print_r($componente_antes);
+
         // Dados do formulário
         $id = $_POST["id"];
         $tipo = $_POST["tipo"];
@@ -36,9 +66,9 @@
 
         // Atualizar no banco de dados
         $query = "UPDATE Componentes 
-                  SET Tipo='$tipo', Marca='$marca', Modelo='$modelo',Quantidade='$quantidade', Capacidade=$capacidade, Velocidade='$velocidade', 
-                      Potencia=$potencia, Cor='$cor', Preco=$preco, DataLancamento='$dataLancamento' 
-                  WHERE ID=$id";
+                    SET Tipo='$tipo', Marca='$marca', Modelo='$modelo',Quantidade='$quantidade', Capacidade=$capacidade, Velocidade='$velocidade', 
+                    Potencia=$potencia, Cor='$cor', Preco=$preco, DataLancamento='$dataLancamento' 
+                    WHERE ID=$id";
 
         if ($conexao->query($query) === TRUE) {
             echo "Componente atualizado com sucesso!<br>";
@@ -46,11 +76,51 @@
             echo "Erro ao atualizar componente: " . $conexao->error;
         }
 
+        $componente_nome_antes = $componente_antes['marca'] . " " . $componente_antes['modelo'];
+        $componente_nome_depois = $marca . " " . $modelo;
+
+        $query_movimento_detalhes = "INSERT INTO movimento_detalhes (tipo, componente_before, componente_after) 
+                            VALUES ('$tipo', '$componente_nome_antes', '$componente_nome_depois')";
+
+        if ($conexao->query($query_movimento_detalhes) === TRUE) {
+            echo "Histórico atualizado com sucesso!";
+        } else {
+            echo "Erro ao atualizar componente: " . $conexao->error;
+        }
+
+        function getMovimentoDetalhesId($str_before, $str_after){
+            $conexao = new mysqli("localhost", "root", "", "gestaostock");
+        
+            if ($conexao->connect_error) {
+                die("Erro na conexão: " . $conexao->connect_error);
+            }
+        
+            $query = "SELECT id FROM movimento_detalhes WHERE componente_before='$str_before' and componente_after='$str_after'";
+            
+            $result = $conexao->query($query);
+        
+            if ($result) {
+                if ($result->num_rows > 0) {
+                    $row = $result->fetch_assoc();
+                    $conexao->close();
+                    return $row;
+                } else {
+                    $conexao->close();
+                    return null;
+                }
+            } else {
+                $conexao->close();
+                return null;
+            }
+        }
+
+        $movimento_detalhes_id = getMovimentoDetalhesId($componente_nome_antes, $componente_nome_depois)['id'];
+
         $userId = $_SESSION['userId'];
         $username = $_SESSION['username'];
 
-        $query_movimentos = "INSERT INTO movimentos (movimento, data, hora, funcionario_id, funcionario_nome) 
-                             VALUES ('Edição', CURRENT_DATE, CURRENT_TIME, $userId, '$username')";
+        $query_movimentos = "INSERT INTO movimentos (movimento, data, hora, funcionario_id, funcionario_nome, movimento_detalhes_id) 
+                            VALUES ('Edição', CURRENT_DATE, CURRENT_TIME, $userId, '$username', '$movimento_detalhes_id')";
 
         if ($conexao->query($query_movimentos) === TRUE) {
             echo "Histórico atualizado com sucesso!";
@@ -102,6 +172,9 @@
 
         <label for="modelo">Modelo:</label>
         <input type="text" name="modelo" value="<?php echo $linha['Modelo']; ?>" required><br>
+
+        <label for="quantidade">Quantidade:</label>
+        <input type="number" name="quantidade" value="<?php echo $linha['Quantidade']; ?>" required><br>
 
         <label for="capacidade">Capacidade:</label>
         <input type="number" name="capacidade" value="<?php echo $linha['Capacidade']; ?>" required><br>

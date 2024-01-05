@@ -34,28 +34,66 @@
         $preco = $_POST["preco"];
         $dataLancamento = $_POST["dataLancamento"];
 
-        // Inserir no banco de dados
-        $query = "INSERT INTO Componentes (Tipo, Marca, Modelo, Quantidade, Capacidade, Velocidade, Potencia, Cor, Preco, DataLancamento) 
-                  VALUES ('$tipo', '$marca', '$modelo', $quantidade, $capacidade, '$velocidade', $potencia, '$cor', $preco, '$dataLancamento')";
+        $componente_nome_antes = "Nenhum";
+        $componente_nome_depois = $marca . " " . $modelo;
 
-        if ($conexao->query($query) === TRUE) {
-            echo "Componente adicionado com sucesso!";
+        $query_movimento_detalhes = "INSERT INTO movimento_detalhes (tipo, componente_before, componente_after) 
+                            VALUES ('$tipo', '$componente_nome_antes', '$componente_nome_depois')";
+
+        if ($conexao->query($query_movimento_detalhes) === TRUE) {
+            echo "Histórico atualizado com sucesso!";
         } else {
-            echo "Erro ao adicionar componente: " . $conexao->error;
+            echo "Erro ao atualizar componente: " . $conexao->error;
         }
+
+        function getMovimentoDetalhesId($str_before, $str_after){
+            $conexao = new mysqli("localhost", "root", "", "gestaostock");
+        
+            if ($conexao->connect_error) {
+                die("Erro na conexão: " . $conexao->connect_error);
+            }
+        
+            $query = "SELECT id FROM movimento_detalhes WHERE componente_before='$str_before' and componente_after='$str_after' ORDER BY id DESC LIMIT 1";
+            
+            $result = $conexao->query($query);
+        
+            if ($result) {
+                if ($result->num_rows > 0) {
+                    $row = $result->fetch_assoc();
+                    $conexao->close();
+                    return $row;
+                } else {
+                    $conexao->close();
+                    return null;
+                }
+            } else {
+                $conexao->close();
+                return null;
+            }
+        }
+
+        $movimento_detalhes_id = getMovimentoDetalhesId($componente_nome_antes, $componente_nome_depois)['id'];
 
         $userId = $_SESSION['userId'];
         $username = $_SESSION['username'];
 
-        $query_movimentos = "INSERT INTO movimentos (movimento, data, hora, funcionario_id, funcionario_nome) 
-                             VALUES ('Adição', CURRENT_DATE, CURRENT_TIME, $userId, '$username')";
-
-        echo "<pre>".print_r($query_movimentos)."</pre>";
+        $query_movimentos = "INSERT INTO movimentos (movimento, data, hora, funcionario_id, funcionario_nome, movimento_detalhes_id) 
+                            VALUES ('Adição', CURRENT_DATE, CURRENT_TIME, $userId, '$username', '$movimento_detalhes_id')";
 
         if ($conexao->query($query_movimentos) === TRUE) {
             echo "Histórico atualizado com sucesso!";
         } else {
             echo "Erro ao atualizar componente: " . $conexao->error;
+        }
+
+        // Inserir no banco de dados
+        $query = "INSERT INTO Componentes (Tipo, Marca, Modelo, Quantidade, Capacidade, Velocidade, Potencia, Cor, Preco, DataLancamento) 
+                    VALUES ('$tipo', '$marca', '$modelo', $quantidade, $capacidade, '$velocidade', $potencia, '$cor', $preco, '$dataLancamento')";
+
+        if ($conexao->query($query) === TRUE) {
+            echo "Componente adicionado com sucesso!";
+        } else {
+            echo "Erro ao adicionar componente: " . $conexao->error;
         }
 
         // Fechar a conexão
