@@ -25,11 +25,10 @@ if (strpos($fullUrl, $specificWord) !== false) {
             <div class="navbar-container">
                 <?php if($urlVerify) { ?>
                     <a href="dashboard.php" class="btn btn-primary navbar-link">Dashboard</a>
+                    <a href="historico.php" class="btn btn-secondary navbar-link">Histórico de Alterações</a>
+                    <a href="gestao_funcionarios.php" class="btn btn-secondary navbar-link">Gestão de Funcionários</a>
                 <?php } else { ?>
-                    <a href="dashboard.php" class="btn btn-secondary navbar-link">Dashboard</a>
-                <?php } ?>
-                <a href="historico.php" class="btn btn-secondary navbar-link">Histórico de Alterações</a>
-                <a href="gestao_funcionarios.php" class="btn btn-secondary navbar-link">Gestão de Funcionários</a>
+                    <?php } ?>
             </div>
         </div>
         <div class="navbar-login">

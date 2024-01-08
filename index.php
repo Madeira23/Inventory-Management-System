@@ -1,1 +1,1 @@
-<?php header("Location: dashboard.php"); ?>
+<?php require 'dashboard.php'; ?>
