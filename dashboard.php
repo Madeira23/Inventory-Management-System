@@ -27,8 +27,7 @@ if (strpos($fullUrl, $specificWord) !== false) {
                     <a href="dashboard.php" class="btn btn-primary navbar-link">Dashboard</a>
                     <a href="historico.php" class="btn btn-secondary navbar-link">Histórico de Alterações</a>
                     <a href="gestao_funcionarios.php" class="btn btn-secondary navbar-link">Gestão de Funcionários</a>
-                <?php } else { ?>
-                    <?php } ?>
+                <?php } ?>
             </div>
         </div>
         <div class="navbar-login">
