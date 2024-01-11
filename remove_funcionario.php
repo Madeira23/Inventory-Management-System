@@ -1,17 +1,20 @@
 <?php
-include 'conexao.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['remover_usuario'])) {
-    $id_usuario = $_POST['id_usuario'];
+$conexao = new mysqli("localhost", "root", "", "gestaostock");
 
-    $sql = "DELETE FROM usuarios WHERE ID = $id_usuario";
-
-    if ($conn->query($sql) === TRUE) {
-        echo "Funcionário removido com sucesso!";
-    } else {
-        echo "Erro ao remover funcionário: " . $conn->error;
-    }
+if ($conexao->connect_error) {
+    die("Erro na conexão: " . $conexao->connect_error);
 }
+    $id_usuario = $_GET["id"];
+    $sql = "DELETE FROM usuarios WHERE ID = ?";
+    $stmt = $conexao->prepare($sql);
+    $stmt->bind_param("i", $id_usuario);
 
-$conn->close();
+if ($stmt->execute()) {
+    header("Location: gestao_funcionarios.php");
+} else {
+    echo "Erro ao remover funcionário: " . $stmt->error;
+}
+$stmt->close(); 
+
 ?>

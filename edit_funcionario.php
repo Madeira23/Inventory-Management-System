@@ -1,9 +1,17 @@
 <?php
-include 'conexao.php';
+
+
+
 require('requireLogin.php');
-include_once "css_imports.html"; 
+include_once "css_imports.html";
+$conexao = new mysqli("localhost", "root", "", "gestaostock");
+
+if ($conexao->connect_error) {
+    die("Erro na conexão: " . $conexao->connect_error);
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['editar_usuario'])) {
-    $id_usuario = $_POST['id_usuario'];
+    $id_usuario = $_GET['id'];
     $nome = $_POST['nome'];
     $username = $_POST['username'];
     $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT); // Hash da senha
@@ -11,14 +19,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['editar_usuario'])) {
 
     $sql = "UPDATE usuarios SET nome='$nome', username='$username', senha='$senha', IsAdmin='$isAdmin' WHERE ID='$id_usuario'";
 
-    if ($conn->query($sql) === TRUE) {
+    if ($conexao->query($sql) === TRUE) {
         echo "Funcionário editado com sucesso!";
-    } else {
-        echo "Erro ao editar Funcionário: " . $conn->error;
+        header("Location: gestao_funcionarios.php");
+        } else {
+        echo "Erro ao editar Funcionário: " . $conexao->error;
     }
 }
 
-$conn->close();
+$conexao->close();
 ?>
 
 <!DOCTYPE html>
@@ -29,9 +38,7 @@ $conn->close();
 </head>
 <body>
     <h2>Editar Funcionário</h2>
-    <form method="post" action="edit_usuario.php">
-        <label for="id_usuario">ID do Funcionário:</label>
-        <input type="text" name="id_usuario" required><br>
+    <form method="post" action="">
 
         <label for="nome">Novo Nome:</label>
         <input type="text" name="nome" required><br>
@@ -45,7 +52,7 @@ $conn->close();
         <label for="isAdmin">É administrador?</label>
         <input type="checkbox" name="isAdmin"><br>
 
-        <input type="submit" name="editar_usuario" value="Editar">
+        <input type="submit" name="editar_usuario" class="btn btn-warning" value="Editar">
     </form>
 </body>
 </html>

@@ -1,23 +1,32 @@
 <?php
-include 'conexao.php'; // Inclua o arquivo de conexão
+
 require('requireLogin.php');
+
 include_once "css_imports.html"; 
+
+$conexao = new mysqli("localhost", "root", "", "gestaostock");
+
+if ($conexao->connect_error) {
+    die("Erro na conexão: " . $conexao->connect_error);
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['adicionar_usuario'])) {
     $nome = $_POST['nome'];
     $username = $_POST['username'];
-    $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT); // Hash da senha
+    $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT); 
     $isAdmin = isset($_POST['isAdmin']) ? 1 : 0;
 
     $sql = "INSERT INTO usuarios (nome, username, senha, IsAdmin) VALUES ('$nome', '$username', '$senha', '$isAdmin')";
 
-    if ($conn->query($sql) === TRUE) {
+    if ($conexao->query($sql) === TRUE) {
+        header("Location: gestao_funcionarios.php");
         echo "Funcionário adicionado com sucesso!";
     } else {
-        echo "Erro ao adicionar funcionário: " . $conn->error;
+        echo "Erro ao adicionar funcionário: " . $conexao->error;
     }
 }
 
-$conn->close();
+$conexao->close();
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +37,7 @@ $conn->close();
 </head>
 <body>
     <h2>Adicionar Funcioário</h2>
-    <form method="post" action="add_usuario.php">
+    <form method="post" action="">
         <label for="nome">Nome:</label>
         <input type="text" name="nome" required><br>
 

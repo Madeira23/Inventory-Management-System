@@ -47,7 +47,12 @@ if (strpos($fullUrl, $specificWord) !== false) {
             </div>
         </div>
         <div class="navbar-login">
-            <a class="btn btn-success">Login</a>
+            <?php if($_SESSION['logado'] !== true) { ?>
+                <a href="login.php" class="btn btn-success">Login</a>
+            <?php } else { ?>
+                <p style="font-size: 10pt"><?=$_SESSION['username']?></p>
+                <a href="logout.php" class="btn btn-success">Logout</a>
+            <?php } ?>
         </div>
     </nav>
 </header>

@@ -99,6 +99,7 @@ if (isset($_GET["id"])) {
     
     if ( mysqli_affected_rows($conexao) > 0) {
         echo "Componente excluído com sucesso!!";
+        header("Location: dashboard.php");
     } else {
         echo "Erro ao excluir componente: " . $conexao->error;
     }

@@ -92,6 +92,7 @@
 
         if ($conexao->query($query) === TRUE) {
             echo "Componente adicionado com sucesso!";
+            header("Location: dashboard.php");
         } else {
             echo "Erro ao adicionar componente: " . $conexao->error;
         }
@@ -133,7 +134,7 @@
         <label for="dataLancamento">Data de Lançamento:</label>
         <input type="date" name="dataLancamento" required><br>
 
-        <input type="submit" value="Adicionar Componente">
+        <input type="submit" class="btn btn-warning" value="Adicionar Componente">
     </form>
 
     <br>

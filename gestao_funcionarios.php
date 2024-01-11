@@ -48,7 +48,12 @@ if (strpos($fullUrl, $specificWord) !== false) {
             </div>
         </div>
         <div class="navbar-login">
-            <a class="btn btn-success">Login</a>
+            <?php if($_SESSION['logado'] !== true) { ?>
+                <a href="login.php" class="btn btn-success">Login</a>
+            <?php } else { ?>
+                <p style="font-size: 10pt"><?=$_SESSION['username']?></p>
+                <a href="logout.php" class="btn btn-success">Logout</a>
+            <?php } ?>
         </div>
     </nav>
 </header>
@@ -60,14 +65,14 @@ if (strpos($fullUrl, $specificWord) !== false) {
         <!-- Adicione o formulário de pesquisa -->
         <form method="GET" action="" class="row mb-3" style="width: 100%; justify-content:center;">
             <div class="" style="width: max-content; display: flex; flex-direction: row;">
-                <label for="funcionário" style="display:flex; align-items: center; margin-right: .5rem;">Pesquisar por Funcionário:</label>
-                <input type="text" name="funcionário" id="funcionário" class="form-control" style="width: fit-content !important;">
+                <label for="usuarios" style="display:flex; align-items: center; margin-right: .5rem;">Pesquisar por Funcionário:</label>
+                <input type="text" name="usuarios" id="usuarios" class="form-control" style="width: fit-content !important;">
             </div>
             <div style="width: max-content;">
                 <input type="submit" value="Pesquisar" class="btn btn-primary">
             </div>
         </form>
-
+        <form method="POST" action="">
         <?php
         // Conectar ao banco de dados
         $conexao = new mysqli("localhost","root","","gestaostock");
@@ -79,9 +84,9 @@ if (strpos($fullUrl, $specificWord) !== false) {
 
         // Consultar os funcionarios com base na pesquisa
         $whereClause = "";
-        if (isset($_GET['funcionario']) && !empty($_GET['funcionario'])) {
-            $produto = $conexao->real_escape_string($_GET['funcionario']);
-            $whereClause = " WHERE Tipo LIKE '%$funcionario%' OR Marca LIKE '%$funcionario%' OR Modelo LIKE '%$funcionario%'";
+        if (isset($_GET['usuarios']) && !empty($_GET['usuarios'])) {
+            $usuarios = $conexao->real_escape_string($_GET['usuarios']);
+            $whereClause = " WHERE nome LIKE '%$usuarios%'";
         }
 
         $query = "SELECT * FROM usuarios" . $whereClause;
@@ -119,7 +124,7 @@ if (strpos($fullUrl, $specificWord) !== false) {
         // Fechar a conexão
         $conexao->close();
         ?>
-
+</form>
         <a href="add_funcionario.php" class="button">Adicionar Novo Funcionário</a>
     </div>
 </div>
